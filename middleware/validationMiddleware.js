@@ -1,7 +1,8 @@
 import { body, param, validationResult } from 'express-validator'
 import mongoose from 'mongoose'
-import { BadRequestError, NotFoundError } from '../Errors/customErrors.js'
+import { BadRequestError, NotFoundError, UnauthenticatedError } from '../Errors/customErrors.js'
 import Job from '../models/JobModel.js'
+import User from '../models/UserModel.js'
 import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js'
 
 const withValidationErrors = (validateValues)=>{
@@ -38,4 +39,24 @@ export const validateIdparam = withValidationErrors([
         const job = await Job.findById(value);
         if(!job) throw new NotFoundError(`No job with Id ${value}`)
     })
+])
+
+export const validateRegisterInput = withValidationErrors([
+    body('name').notEmpty().withMessage('name is required'),
+    body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').custom(async(email)=>{
+        const user = await User.findOne({email});
+        if(user) throw new BadRequestError('Email already Exists');
+    }),
+    body('password').notEmpty().withMessage('Password is required').isLength({min: 8}).withMessage('password must be atleast 8 characters long'),
+    body('lastName').notEmpty().withMessage('Last name is required'),
+    body('location').notEmpty().withMessage('Location name is required'),
+
+])
+
+export const validateLoginInput = withValidationErrors([
+    body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').custom(async(email)=>{
+        // const user = await User.findOne({email});
+        // if(!user) throw new UnauthenticatedError('Please register');
+    }),
+    body('password').notEmpty().withMessage('Password is required'),
 ])

@@ -8,6 +8,7 @@ import mongoose from 'mongoose'
 
 // routers
 import jobRouter from './routers/jobRouter.js'
+import userRouter from './routers/authRouter.js'
 
 //middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
@@ -18,6 +19,7 @@ if(process.env.NODE_ENV === 'development'){
 app.use(express.json())
 
 app.use('/api/v1/jobs', jobRouter)
+app.use('/api/v1/auth', userRouter)
 
 app.use('*', (req, res)=>{
     res.status(404).json({msg:'not found'})
