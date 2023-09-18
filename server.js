@@ -9,15 +9,13 @@ import mongoose from 'mongoose'
 // routers
 import jobRouter from './routers/jobRouter.js'
 
+//middleware
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 app.use(express.json())
-
-app.post('/', (req, res)=>{
-    console.log(req.body);
-    res.json({message: 'Data received', data: req.body});
-})
 
 app.use('/api/v1/jobs', jobRouter)
 
@@ -25,10 +23,7 @@ app.use('*', (req, res)=>{
     res.status(404).json({msg:'not found'})
 })
 
-app.use((err, req, res, next)=>{
-    console.log(err);
-    res.status(500).json({msg: 'something went wrong'})
-})
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5100
 
