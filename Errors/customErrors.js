@@ -19,7 +19,7 @@ export class BadRequestError extends Error{
 export class UnauthenticatedError extends Error{
     constructor(message){
         super(message)
-        this.name = 'UnauthenticateddError';
+        this.name = 'UnauthenticatedError';
         this.StatusCode = StatusCodes.UNAUTHORIZED;
     }
 }
