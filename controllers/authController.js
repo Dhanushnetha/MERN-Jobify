@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { UnauthenticatedError } from "../Errors/customErrors.js";
+import { UnauthenticatedError } from "../errors/customErrors.js";
 import User from "../models/UserModel.js";
 import { comparePassword, hashPassword } from "../utils/passwordUtils.js";
 import { createJWT } from "../utils/tokenUtils.js";
