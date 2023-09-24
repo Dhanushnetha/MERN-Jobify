@@ -6,8 +6,6 @@ import NavLinks from "./NavLinks";
 
 const SmallSidebar = () => {
     const {showSidebar, toggleSidebar} = useDashbardContext();
-    console.log(showSidebar);
-    console.log("sidebar-container show-sidebar");
   return (
     <Wrapper>
         <div className={showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'}>
