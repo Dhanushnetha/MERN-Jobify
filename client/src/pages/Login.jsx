@@ -4,7 +4,7 @@ import Wrapper from "../assets/wrappers/RegisterAndLoginPage"
 import { FormRow, Logo, SubmitBtn } from "../Components"
 import customFetch from "../utils/customFetch"
 
-export const action = async({request})=>{
+export const action =(queryClient)=> async({request})=>{
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
@@ -15,6 +15,7 @@ export const action = async({request})=>{
   // }
   try {
     await customFetch.post('/auth/login', data);
+    queryClient.invalidateQueries();
     toast.success('Login successful');
     return redirect('/dashboard');
   } catch (error) {

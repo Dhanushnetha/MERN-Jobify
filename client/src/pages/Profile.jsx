@@ -1,10 +1,10 @@
-import { Form, useOutletContext } from "react-router-dom"
+import { Form, redirect, useOutletContext } from "react-router-dom"
 import { toast } from "react-toastify"
 import Wrapper from "../assets/wrappers/DashboardFormPage"
 import { FormRow, SubmitBtn } from "../Components"
 import customFetch from "../utils/customFetch"
 
-export const action = async({request})=>{
+export const action =(queryClient)=> async({request})=>{
   const formData = await request.formData();
   const file = formData.get('avatar');
   if(file && file.size > 500000){
@@ -13,7 +13,9 @@ export const action = async({request})=>{
   }
   try {
     await customFetch.patch('/users/update-user', formData);
+    queryClient.invalidateQueries(['user']);
     toast.success('Profile updated successfully');
+    return redirect('/dashboard')
   } catch (error) {
     toast.error(error?.response?.data?.msg)
   }

@@ -5,7 +5,7 @@ import Wrapper from '../assets/wrappers/DashboardFormPage'
 import {FormRow, FormRowSelect, SubmitBtn} from '../Components'
 import customFetch from '../utils/customFetch'
 
-export const action = async ({request})=>{
+export const action =(queryClient)=> async ({request})=>{
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
@@ -16,6 +16,8 @@ export const action = async ({request})=>{
   }
   try {
     await customFetch.post('/jobs', data);
+    queryClient.invalidateQueries(['jobs'])
+    queryClient.invalidateQueries(['stats'])
     toast.success('Job Added');
     return redirect('/dashboard/all-jobs')
   } catch (error) {
