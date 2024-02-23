@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jobify-webapp
+  labels:
+    name: webapp-pod
+    app: jobify
+spec:
+  containers:
+    - name: mern-webapp
+      image: gujjaridhanush/web_application
+      ports:
+        - containerPort: 5100

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobify-deploy
+  labels:
+    name: webapp-deploy
+    app: jobify
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: webapp-pod
+      app: jobify
+  template:
+    metadata:
+      name: jobify-webapp
+      labels:
+        name: webapp-pod
+        app: jobify
+    spec:
+      containers:
+        - name: mern-webapp
+          image: gujjaridhanush/web_application
+          ports:
+            - containerPort: 5100
