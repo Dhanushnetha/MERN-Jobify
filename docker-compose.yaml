@@ -1,0 +1,15 @@
+version: "3.8"
+services: 
+  # mongodb:
+  #   container_name: mongo
+  #   image: mongo:latest
+  #   restart: always
+  #   volumes: 
+  #     - mongo_db: /data/db
+  # docker run -p 27017:27017 -d -e MONGO_INITDB_ROOT_USERNAME=Dhanush -e MONGO_INITDB_ROOT_PASSWORD=1234 --name mongodb1 mongo
+  
+  app:
+    build: .
+    ports: 
+      - 5100:5100
+    
