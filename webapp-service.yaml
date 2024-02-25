@@ -6,7 +6,7 @@ metadata:
     name: jobify-service
     app: jobify
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 5100
       targetPort: 5100

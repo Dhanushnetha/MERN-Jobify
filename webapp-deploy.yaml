@@ -20,6 +20,9 @@ spec:
     spec:
       containers:
         - name: mern-webapp
-          image: gujjaridhanush/web_application
+          image: gujjaridhanush/mernjobify
+          envFrom:
+            - secretRef:
+                name: my-secret
           ports:
             - containerPort: 5100
